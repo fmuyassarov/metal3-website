@@ -1,0 +1,128 @@
+---
+  - name: Define number of BMH's
+    set_fact:
+      NUMBER_OF_BMH: "{{ NUM_OF_MASTER_REPLICAS|int +  NUM_OF_WORKER_REPLICAS|int }}"
+
+  - name: Remove ironic container from source cluster (Ephemeral Cluster is kind)
+    docker_container:
+      name: "{{ item }}"
+      state: absent
+    with_items:
+       - ironic
+       - ironic-inspector
+       - dnsmasq
+       - httpd
+       - mariadb
+       - ironic-endpoint-keepalived
+    when: EPHEMERAL_CLUSTER == "kind"
+
+  - name: Remove Ironic from from source cluster (Ephemeral Cluster is minikube)
+    k8s:
+      name: metal3-ironic
+      kind: Deployment
+      state: absent
+      namespace: "{{ NAMESPACE }}"
+    when: EPHEMERAL_CLUSTER == "minikube"
+
+  - name: Label BMO CRDs.
+    shell: 'kubectl label --overwrite crds baremetalhosts.metal3.io {{ item }}'
+    with_items:
+       - clusterctl.cluster.x-k8s.io=""
+       - cluster.x-k8s.io/provider="metal3"
+    when: CAPM3_VERSION == "v1alpha3"
+
+  - name: Obtain target cluster kubeconfig
+    shell: "kubectl get secrets {{ CLUSTER_NAME }}-kubeconfig -n {{ NAMESPACE }} -o json | jq -r '.data.value'| base64 -d > /tmp/kubeconfig-{{ CLUSTER_NAME }}.yaml"
+
+  - name: Create namespace
+    k8s:
+      name: "{{ NAMESPACE }}"
+      kind: Namespace
+      state: present
+      kubeconfig: "/tmp/kubeconfig-{{ CLUSTER_NAME }}.yaml"
+
+  # Install BMO
+  - name: Install Baremetal Operator
+    shell: "kustomize build /home/$USER/go/src/github.com/metal3-io/baremetal-operator/deploy/default/ | kubectl --kubeconfig=/tmp/kubeconfig-{{ CLUSTER_NAME }}.yaml apply -n {{ NAMESPACE }} -f -"
+    when: CAPM3_VERSION == "v1alpha3"
+
+  # Install Ironic
+  - name: Install Ironic
+    shell: "kustomize build /home/$USER/go/src/github.com/metal3-io/baremetal-operator/ironic-deployment/keepalived/ | kubectl --kubeconfig=/tmp/kubeconfig-{{ CLUSTER_NAME }}.yaml apply -n {{ NAMESPACE }} -f -"
+
+  - name: Pivoting test
+    delegate_to: "{{ CLUSTER_APIENDPOINT_IP }}"
+    vars:
+      ansible_user: "{{ IMAGE_USERNAME }}"
+      ansible_ssh_private_key_file: "{{ SSH_PRIVATE_KEY }}"
+      ansible_python_interpreter: /usr/bin/python3
+    become: yes
+    become_user: "{{ IMAGE_USERNAME }}"
+    block:
+      - name: Clone Baremetal Operator
+        git:
+          repo: 'https://github.com/metal3-io/baremetal-operator.git'
+          dest: "/home/{{ IMAGE_USERNAME }}/baremetal-operator"
+
+      - name: Label BMO CRDs.
+        shell: 'kubectl label --overwrite crds baremetalhosts.metal3.io {{ item }} --overwrite '
+        with_items:
+          - clusterctl.cluster.x-k8s.io=""
+          - cluster.x-k8s.io/provider="metal3"
+    when: CAPM3_VERSION == "v1alpha3"
+
+  - name: Initialize Provider component in target cluster
+    shell: "clusterctl init --kubeconfig /tmp/kubeconfig-{{ CLUSTER_NAME }}.yaml --core cluster-api:{{ CAPIRELEASE }} --bootstrap kubeadm:{{ CAPIRELEASE }} --control-plane kubeadm:{{ CAPIRELEASE }} --infrastructure metal3:{{ CAPM3RELEASE }} -v 5"
+
+    # Check for pods & nodes on the target cluster
+  - name: Check if pods in running state
+    shell: "kubectl get pods -A -o json | jq -r '.items[].status.phase' | grep -v Running"
+    environment:
+      KUBECONFIG: "/tmp/kubeconfig-{{ CLUSTER_NAME }}.yaml"
+    retries: 150
+    delay: 20
+    register: target_running_pods
+    failed_when: >
+      (target_running_pods.stderr != "") or
+      (target_running_pods.rc > 1) or
+      (target_running_pods.stdout != "")
+    until: target_running_pods.stdout == ""
+
+  - name: Pivot objects to target cluster
+    shell: "clusterctl move --to-kubeconfig /tmp/kubeconfig-{{ CLUSTER_NAME }}.yaml -n {{ NAMESPACE }} -v 10"
+
+  - name: Check if machines become running.
+    shell: |
+        kubectl get machines -n {{ NAMESPACE }} -o json | jq -r '[ .items[]
+        | select (.status.phase == "Running" or .status.phase == "running")
+        | .metadata.name ] | length'
+    register: provisioned_machines
+    environment:
+      KUBECONFIG: "/tmp/kubeconfig-{{ CLUSTER_NAME }}.yaml"
+    retries: 50
+    delay: 20
+    until: provisioned_machines.stdout == NUMBER_OF_BMH
+
+  - name: Check if metal3machines become provisioned.
+    shell: |
+        kubectl get m3m -n {{ NAMESPACE }} -o json | jq -r '[ .items[]
+        | select (.status.ready == true)
+        | .metadata.name ] | length'
+    register: provisioned_m3m_machines
+    environment:
+      KUBECONFIG: "/tmp/kubeconfig-{{ CLUSTER_NAME }}.yaml"
+    retries: 10
+    delay: 20
+    until: provisioned_m3m_machines.stdout == NUMBER_OF_BMH
+
+  - name: Check if bmh is in provisioned state
+    shell: |
+        kubectl get bmh -n {{ NAMESPACE }} -o json | jq -r '[ .items[]
+        | select (.status.provisioning.state == "provisioned")
+        | .metadata.name ] | length'
+    environment:
+      KUBECONFIG: "/tmp/kubeconfig-{{ CLUSTER_NAME }}.yaml"
+    register: provisioned_bmh
+    retries: 10
+    delay: 20
+    until: provisioned_bmh.stdout ==  NUMBER_OF_BMH

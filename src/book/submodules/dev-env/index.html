@@ -1,0 +1,313 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Metal3-dev-env - Metal³ Book</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../../favicon.png">
+        
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="../../overview/project-overview.html"><strong aria-hidden="true">1.</strong> Project Overview</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../overview/metal3-components.html"><strong aria-hidden="true">1.1.</strong> Metal³ Components</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../overview/capm3/capm3.html"><strong aria-hidden="true">1.1.1.</strong> Cluster-Api-Provider-Metal³</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../overview/capm3/workflow.html"><strong aria-hidden="true">1.1.1.1.</strong> Workflow</a></li><li class="chapter-item expanded "><a href="../../overview/capm3/api.html"><strong aria-hidden="true">1.1.1.2.</strong> API concepts</a></li></ol></li><li class="chapter-item expanded "><a href="../../overview/bmo/bmo.html"><strong aria-hidden="true">1.1.2.</strong> Baremetal Operator</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../overview/bmo/ironic-integration.html"><strong aria-hidden="true">1.1.2.1.</strong> Ironic Integration</a></li><li class="chapter-item expanded "><a href="../../overview/bmo/bmh-states.html"><strong aria-hidden="true">1.1.2.2.</strong> BaremetalHost Provisioning States</a></li><li class="chapter-item expanded "><a href="../../overview/bmo/workflow.html"><strong aria-hidden="true">1.1.2.3.</strong> Workflow</a></li><li class="chapter-item expanded "><a href="../../overview/bmo/api.html"><strong aria-hidden="true">1.1.2.4.</strong> API concepts</a></li></ol></li><li class="chapter-item expanded "><a href="../../overview/metal3-dev-env.html"><strong aria-hidden="true">1.1.3.</strong> Metal³-Dev-Env</a></li><li class="chapter-item expanded "><a href="../../overview/ipam/ip-address-manager.html"><strong aria-hidden="true">1.1.4.</strong> Ip-Address-Manager</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../overview/ipam/workflow.html"><strong aria-hidden="true">1.1.4.1.</strong> Workflow</a></li><li class="chapter-item expanded "><a href="../../overview/ipam/api.html"><strong aria-hidden="true">1.1.4.2.</strong> API concepts</a></li></ol></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../developer/developer-guide.html"><strong aria-hidden="true">2.</strong> Developer Guide</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../developer/testing.html"><strong aria-hidden="true">2.1.</strong> Testing</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../developer/testing/metal3-dev-env.html"><strong aria-hidden="true">2.1.1.</strong> Metal³-Dev-Env</a></li><li class="chapter-item expanded "><a href="../../developer/testing/tilt.html"><strong aria-hidden="true">2.1.2.</strong> Tilt</a></li></ol></li><li class="chapter-item expanded "><a href="../../developer/contollers.html"><strong aria-hidden="true">2.2.</strong> Custom Resources</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../developer/controllers/Metal3Cluster.html"><strong aria-hidden="true">2.2.1.</strong> Metal3Cluster</a></li><li class="chapter-item expanded "><a href="../../developer/controllers/Metal3Machine.html"><strong aria-hidden="true">2.2.2.</strong> Metal3Machine</a></li><li class="chapter-item expanded "><a href="../../developer/controllers/BareMetalHost.html"><strong aria-hidden="true">2.2.3.</strong> BareMetalHost</a></li><li class="chapter-item expanded "><a href="../../developer/controllers/Metal3MachineTemplate.html"><strong aria-hidden="true">2.2.4.</strong> Metal3MachineTemplate</a></li><li class="chapter-item expanded "><a href="../../developer/controllers/IpPool.html"><strong aria-hidden="true">2.2.5.</strong> IpPool</a></li><li class="chapter-item expanded "><a href="../../developer/controllers/IpClaim.html"><strong aria-hidden="true">2.2.6.</strong> IpClaim</a></li><li class="chapter-item expanded "><a href="../../developer/controllers/IpAddress.html"><strong aria-hidden="true">2.2.7.</strong> IpAddress</a></li><li class="chapter-item expanded "><a href="../../developer/controllers/Metal3Data.html"><strong aria-hidden="true">2.2.8.</strong> Metal3Data</a></li><li class="chapter-item expanded "><a href="../../developer/controllers/Metal3DataClaim.html"><strong aria-hidden="true">2.2.9.</strong> Metal3DataClaim</a></li><li class="chapter-item expanded "><a href="../../developer/controllers/Metal3DataTemplate.html"><strong aria-hidden="true">2.2.10.</strong> Metal3DataTemplate</a></li></ol></li><li class="chapter-item expanded "><a href="../../developer/relational_diagram.html"><strong aria-hidden="true">2.3.</strong> Custom Resource Relational Diagram</a></li></ol></li><li class="chapter-item expanded "><a href="../../references/references.html"><strong aria-hidden="true">3.</strong> References</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../references/glossary.html"><strong aria-hidden="true">3.1.</strong> Glossary</a></li><li class="chapter-item expanded "><a href="../../references/code-of-conduct.html"><strong aria-hidden="true">3.2.</strong> Code of Conduct</a></li><li class="chapter-item expanded "><a href="../../references/contribution.html"><strong aria-hidden="true">3.3.</strong> Contribution</a></li><li class="chapter-item expanded "><a href="../../references/roadmap.html"><strong aria-hidden="true">3.4.</strong> Roadmap</a></li></ol></li><li class="chapter-item expanded "><a href="../../mdbook.html"><strong aria-hidden="true">4.</strong> Multi-repo Test with Mdbook</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../submodules/bmo/docs/api.html"><strong aria-hidden="true">4.1.</strong> BMO</a></li><li class="chapter-item expanded "><a href="../../submodules/capm3/docs/api.html"><strong aria-hidden="true">4.2.</strong> CAPM3</a></li><li class="chapter-item expanded "><a href="../../submodules/dev-env/index.html" class="active"><strong aria-hidden="true">4.3.</strong> Metal3-dev-env</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Metal³ Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        <a href="https://github.com/metal3-io" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#metal³-development-environment" id="metal³-development-environment">Metal³ Development Environment</a></h1>
+<p>This repository includes scripts to set up a Metal³ development environment.</p>
+<h2><a class="header" href="#build-status" id="build-status">Build Status</a></h2>
+<p><a href="https://jenkins.nordix.org/view/Airship/job/airship_master_v1a3_integration_test_ubuntu"><img src="https://jenkins.nordix.org/view/Airship/job/airship_master_v1a3_integration_test_ubuntu/badge/icon?subject=Ubuntu%20E2E%20V1alpha3" alt="Ubuntu V1alpha3 build status" /></a>
+<a href="https://jenkins.nordix.org/view/Airship/job/airship_master_v1a3_integration_test_centos"><img src="https://jenkins.nordix.org/view/Airship/job/airship_master_v1a3_integration_test_centos/badge/icon?subject=CentOS%20E2E%20V1alpha3" alt="CentOS V1alpha3 build status" /></a>
+<a href="https://jenkins.nordix.org/view/Airship/job/airship_master_v1a4_integration_test_ubuntu"><img src="https://jenkins.nordix.org/view/Airship/job/airship_master_v1a4_integration_test_ubuntu/badge/icon?subject=Ubuntu%20E2E%20V1alpha4" alt="Ubuntu V1alpha4 build status" /></a>
+<a href="https://jenkins.nordix.org/view/Airship/job/airship_master_v1a4_integration_test_centos"><img src="https://jenkins.nordix.org/view/Airship/job/airship_master_v1a4_integration_test_centos/badge/icon?subject=CentOS%20E2E%20V1alpha4" alt="CentOS V1alpha4 build status" /></a></p>
+<h2><a class="header" href="#instructions" id="instructions">Instructions</a></h2>
+<p>Instructions can be found here: <a href="https://metal3.io/try-it.html">https://metal3.io/try-it.html</a></p>
+<h2><a class="header" href="#quickstart" id="quickstart">Quickstart</a></h2>
+<p>Versions v1alpha3 or v1alpha4 are later referred as <strong>v1alphaX</strong>.</p>
+<p>The v1alphaX deployment can be done with Ubuntu 18.04, 20.04 or Centos 8 target host
+images. By default, for Ubuntu based target hosts we are using Ubuntu 20.04</p>
+<h3><a class="header" href="#requirements" id="requirements">Requirements</a></h3>
+<h4><a class="header" href="#dev-env-size" id="dev-env-size">Dev env size</a></h4>
+<p>The requirements for the dev env machine are, when deploying <strong>Ubuntu</strong> target
+hosts:</p>
+<ul>
+<li>8GB of memory</li>
+<li>4 cpus</li>
+</ul>
+<p>And when deploying <strong>Centos</strong> target hosts:</p>
+<ul>
+<li>16GB of memory</li>
+<li>4 cpus</li>
+</ul>
+<p>The Minikube machine is deployed with 4GB of RAM, and 2 vCPUs, and the target
+hosts with 4 vCPUs and 4GB of RAM.</p>
+<h3><a class="header" href="#environment-variables" id="environment-variables">Environment variables</a></h3>
+<p>Select:</p>
+<pre><code class="language-sh">export CAPM3_VERSION=v1alpha3
+</code></pre>
+<p>or</p>
+<pre><code class="language-sh">export CAPM3_VERSION=v1alpha4
+</code></pre>
+<p>The following environment variables need to be set for <strong>Centos</strong>:</p>
+<pre><code class="language-sh">export IMAGE_OS=Centos
+</code></pre>
+<p>And the following environment variables need to be set for <strong>Ubuntu</strong>:</p>
+<pre><code class="language-sh">export IMAGE_OS=Ubuntu
+</code></pre>
+<p>You can check a list of all the environment variables <a href="vars.html">here</a></p>
+<h3><a class="header" href="#deploy-the-metal3-dev-env" id="deploy-the-metal3-dev-env">Deploy the metal3 Dev env</a></h3>
+<pre><code class="language-sh">./01_prepare_host.sh
+./02_configure_host.sh
+./03_launch_mgmt_cluster.sh
+</code></pre>
+<p>or</p>
+<pre><code class="language-sh">make
+</code></pre>
+<h3><a class="header" href="#deploy-the-target-cluster" id="deploy-the-target-cluster">Deploy the target cluster</a></h3>
+<pre><code class="language-sh">./scripts/provision/cluster.sh
+./scripts/provision/controlplane.sh
+./scripts/provision/worker.sh
+</code></pre>
+<h3><a class="header" href="#pivot-to-the-target-cluster" id="pivot-to-the-target-cluster">Pivot to the target cluster</a></h3>
+<pre><code class="language-sh">./scripts/provision/pivot.sh
+</code></pre>
+<h3><a class="header" href="#delete-the-target-cluster" id="delete-the-target-cluster">Delete the target cluster</a></h3>
+<pre><code class="language-sh">kubectl delete cluster &quot;${CLUSTER_NAME:-&quot;test1&quot;}&quot; -n metal3
+</code></pre>
+<h3><a class="header" href="#deploying-with-tilt" id="deploying-with-tilt">Deploying with Tilt</a></h3>
+<p>It is possible to use Tilt to run the CAPI and CAPM3 components. For this, run:</p>
+<pre><code class="language-sh">export EPHEMERAL_CLUSTER=&quot;tilt&quot;
+make
+</code></pre>
+<p>Then clone the Cluster API Provider Metal3 repository, and follow the
+<a href="https://github.com/metal3-io/cluster-api-provider-metal3/blob/master/docs/dev-setup.md#tilt-development-environment">instructions</a>.
+That will mostly be the three following blocks of commands.</p>
+<pre><code class="language-sh">source lib/common.sh
+source lib/network.sh
+source lib/images.sh
+</code></pre>
+<p>and go to the CAPM3 repository and run</p>
+<pre><code class="language-sh">make tilt-settings
+</code></pre>
+<p>Please refer to the CAPM3 instructions to include BMO and IPAM. Then run :</p>
+<pre><code class="language-sh">make tilt-up
+</code></pre>
+<p>Once the cluster is running, you can create the BareMetalHosts :</p>
+<pre><code class="language-sh">kubectl create namespace metal3
+kubectl apply -n metal3 -f /opt/metal3-dev-env/bmhosts_crs.yaml
+</code></pre>
+<p>Afterwards, you can deploy a target cluster.</p>
+<p>If you are running tilt on a remote machine, you can forward the web interface
+by adding the following parameter to the ssh command <code>-L 10350:127.0.0.1:10350</code></p>
+<p>Then you can access the Tilt dashboard locally <a href="http://127.0.0.1:10350">here</a></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../../submodules/capm3/docs/api.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../../submodules/capm3/docs/api.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

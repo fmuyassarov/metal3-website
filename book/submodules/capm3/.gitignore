@@ -1,0 +1,53 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, build with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+coverage.*
+
+# Ansible
+*.retry
+
+# vim
+*~
+*.swp
+
+# envfiles
+.env
+envfile
+
+# kubeconfigs
+kind.kubeconfig
+minikube.kubeconfig
+kubeconfig
+
+# ssh keys
+.ssh*
+
+# Example and binary output directory
+/out
+
+# vscode
+.vscode
+
+# goland
+.idea
+
+bin/*
+hack/tools/bin/*
+examples/_out/*
+examples/provider-components/*-components.yaml
+out/*
+
+# Tilt files.
+.tiltbuild
+/tilt.d
+tilt-settings.json
+tilt_config.json

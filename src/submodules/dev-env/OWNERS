@@ -1,0 +1,17 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+approvers:
+ - dhellmann
+ - hardys
+ - maelk
+ - russellb
+ - stbenjam
+ - fmuyassarov
+
+reviewers:
+ - kashifest
+ - jan-est
+ - xenwar
+ - Jaakko-Os
+ - smoshiur1237
+ - furkatgofurov7
