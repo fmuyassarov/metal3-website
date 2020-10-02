@@ -1,3 +1,0 @@
-- src: https://github.com/fubarhouse/ansible-role-golang.git
-  version: master
-  name: fubarhouse.golang
