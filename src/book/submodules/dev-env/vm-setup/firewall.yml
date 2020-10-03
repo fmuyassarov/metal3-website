@@ -1,8 +1,0 @@
----
-- name: Setup dummy baremetal VMs
-  hosts: virthost
-  connection: local
-  gather_facts: true
-  tasks:
-    - import_role:
-        name: firewall

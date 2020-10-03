@@ -27,6 +27,6 @@ on Kubernetes Slack
  | [recordings](https://www.youtube.com/playlist?list=PL2h5ikWC8viJY4SNeOpCKTyERToTbJJJA) ]
 - Metal³ [website](https://metal3.io/)
 
-## Code of Conduct
+## Code of Conduct 
 
 See the [Contributor Covenant Code of Conduct](https://github.com/metal3-io/metal3-docs/blob/master/CODE_OF_CONDUCT.md)
